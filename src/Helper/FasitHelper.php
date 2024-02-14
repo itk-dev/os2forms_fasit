@@ -368,7 +368,7 @@ class FasitHelper {
    * @throws \Drupal\os2forms_fasit\Exception\FasitResponseException
    * @throws \Drupal\os2forms_fasit\Exception\FileTypeException
    *
-   * @phpstan-return array<string, mixed>
+   * @phpstan-return array<mixed, mixed>
    */
   private function uploadFileElements(string $submissionId): array {
     // Fetch element ids that may contain pdf files.
