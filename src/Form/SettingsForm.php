@@ -22,25 +22,9 @@ final class SettingsForm extends FormBase {
   public const CERTIFICATE = 'certificate';
 
   /**
-   * The settings.
-   *
-   * @var \Drupal\os2forms_fasit\Helper\Settings
-   */
-  private Settings $settings;
-
-  /**
-   * The certificate locator helper.
-   *
-   * @var \Drupal\os2forms_fasit\Helper\CertificateLocatorHelper
-   */
-  private CertificateLocatorHelper $certificateLocatorHelper;
-
-  /**
    * Constructor.
    */
-  public function __construct(Settings $settings, CertificateLocatorHelper $certificateLocatorHelper) {
-    $this->settings = $settings;
-    $this->certificateLocatorHelper = $certificateLocatorHelper;
+  public function __construct(private readonly Settings $settings, private readonly CertificateLocatorHelper $certificateLocatorHelper) {
   }
 
   /**
@@ -83,7 +67,7 @@ final class SettingsForm extends FormBase {
       '#title' => $this->t('Fasit API tenant'),
       '#required' => TRUE,
       '#default_value' => !empty($fasitApiTenant) ? $fasitApiTenant : NULL,
-      '#description' => $this->t('Specifies which municipality to send to. This is disclosed by Schultz'),
+      '#description' => $this->t('Specifies which tenant to use. This is disclosed by Schultz'),
     ];
 
     $fasitApiVersion = $this->settings->getFasitApiVersion();
@@ -102,14 +86,14 @@ final class SettingsForm extends FormBase {
       '#title' => $this->t('Certificate'),
       '#tree' => TRUE,
 
-      'locator_type' => [
+      CertificateLocatorHelper::LOCATOR_TYPE => [
         '#type' => 'select',
         '#title' => $this->t('Certificate locator type'),
         '#options' => [
-          'azure_key_vault' => $this->t('Azure key vault'),
-          'file_system' => $this->t('File system'),
+          CertificateLocatorHelper::LOCATOR_TYPE_AZURE_KEY_VAULT => $this->t('Azure key vault'),
+          CertificateLocatorHelper::LOCATOR_TYPE_FILE_SYSTEM => $this->t('File system'),
         ],
-        '#default_value' => $certificate['locator_type'] ?? NULL,
+        '#default_value' => $certificate[CertificateLocatorHelper::LOCATOR_TYPE] ?? NULL,
       ],
     ];
 
@@ -122,12 +106,12 @@ final class SettingsForm extends FormBase {
     ];
 
     $settings = [
-      'tenant_id' => ['title' => $this->t('Tenant id')],
-      'application_id' => ['title' => $this->t('Application id')],
-      'client_secret' => ['title' => $this->t('Client secret')],
-      'name' => ['title' => $this->t('Name')],
-      'secret' => ['title' => $this->t('Secret')],
-      'version' => ['title' => $this->t('Version')],
+      CertificateLocatorHelper::LOCATOR_AZURE_KEY_VAULT_TENANT_ID => ['title' => $this->t('Tenant id')],
+      CertificateLocatorHelper::LOCATOR_AZURE_KEY_VAULT_APPLICATION_ID => ['title' => $this->t('Application id')],
+      CertificateLocatorHelper::LOCATOR_AZURE_KEY_VAULT_CLIENT_SECRET => ['title' => $this->t('Client secret')],
+      CertificateLocatorHelper::LOCATOR_AZURE_KEY_VAULT_NAME => ['title' => $this->t('Name')],
+      CertificateLocatorHelper::LOCATOR_AZURE_KEY_VAULT_SECRET => ['title' => $this->t('Secret')],
+      CertificateLocatorHelper::LOCATOR_AZURE_KEY_VAULT_VERSION => ['title' => $this->t('Version')],
     ];
 
     foreach ($settings as $key => $info) {
@@ -158,10 +142,10 @@ final class SettingsForm extends FormBase {
       ],
     ];
 
-    $form[self::CERTIFICATE]['passphrase'] = [
+    $form[self::CERTIFICATE][CertificateLocatorHelper::LOCATOR_PASSPHRASE] = [
       '#type' => 'textfield',
       '#title' => $this->t('Passphrase'),
-      '#default_value' => $certificate['passphrase'] ?? NULL,
+      '#default_value' => $certificate[CertificateLocatorHelper::LOCATOR_PASSPHRASE] ?? NULL,
     ];
 
     $form['actions']['#type'] = 'actions';
@@ -193,8 +177,8 @@ final class SettingsForm extends FormBase {
 
     $values = $formState->getValues();
 
-    if (CertificateLocatorHelper::LOCATOR_TYPE_FILE_SYSTEM === $values['certificate']['locator_type']) {
-      $path = $values['certificate'][CertificateLocatorHelper::LOCATOR_TYPE_FILE_SYSTEM]['path'] ?? NULL;
+    if (CertificateLocatorHelper::LOCATOR_TYPE_FILE_SYSTEM === $values[self::CERTIFICATE][CertificateLocatorHelper::LOCATOR_TYPE]) {
+      $path = $values[self::CERTIFICATE][CertificateLocatorHelper::LOCATOR_TYPE_FILE_SYSTEM]['path'] ?? NULL;
       if (!file_exists($path)) {
         $formState->setErrorByName('certificate][file_system][path', $this->t('Invalid certificate path: %path', ['%path' => $path]));
       }

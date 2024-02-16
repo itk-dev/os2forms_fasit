@@ -32,8 +32,7 @@
     },
     "scripts": {
         "code-analysis/drupal-check": [
-            "# @see https://github.com/mglaman/drupal-check/issues/261#issuecomment-1030141772 for details on exclude-dir value",
-            "drupal-check --deprecations --analysis --exclude-dir='vendor,*/Client/*' *.* src"
+            "drupal-check --deprecations --analysis --exclude-dir='vendor' *.* src"
         ],
         "code-analysis": [
             "@code-analysis/drupal-check"

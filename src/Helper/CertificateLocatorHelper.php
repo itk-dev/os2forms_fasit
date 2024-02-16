@@ -16,8 +16,17 @@ use ItkDev\Serviceplatformen\Certificate\FilesystemCertificateLocator;
  * Certificate locator helper.
  */
 class CertificateLocatorHelper {
+  public const LOCATOR_TYPE = 'locator_type';
   public const LOCATOR_TYPE_AZURE_KEY_VAULT = 'azure_key_vault';
   public const LOCATOR_TYPE_FILE_SYSTEM = 'file_system';
+  public const LOCATOR_PASSPHRASE = 'passphrase';
+  public const LOCATOR_AZURE_KEY_VAULT_TENANT_ID = 'tenant_id';
+  public const LOCATOR_AZURE_KEY_VAULT_APPLICATION_ID = 'application_id';
+  public const LOCATOR_AZURE_KEY_VAULT_CLIENT_SECRET = 'client_secret';
+  public const LOCATOR_AZURE_KEY_VAULT_NAME = 'name';
+  public const LOCATOR_AZURE_KEY_VAULT_SECRET = 'secret';
+  public const LOCATOR_AZURE_KEY_VAULT_VERSION = 'version';
+  public const LOCATOR_FILE_SYSTEM_PATH = 'path';
 
   /**
    * The settings.
@@ -27,7 +36,7 @@ class CertificateLocatorHelper {
   private Settings $settings;
 
   /**
-   * {@inheritdoc}
+   * Constructor.
    */
   public function __construct(Settings $settings) {
     $this->settings = $settings;
@@ -39,10 +48,10 @@ class CertificateLocatorHelper {
   public function getCertificateLocator(): CertificateLocatorInterface {
     $certificateSettings = $this->settings->getCertificate();
 
-    $locatorType = $certificateSettings['locator_type'];
+    $locatorType = $certificateSettings[self::LOCATOR_TYPE];
     $options = $certificateSettings[$locatorType];
     $options += [
-      'passphrase' => $certificateSettings['passphrase'] ?: '',
+      self::LOCATOR_PASSPHRASE => $certificateSettings[self::LOCATOR_PASSPHRASE] ?: '',
     ];
 
     if (self::LOCATOR_TYPE_AZURE_KEY_VAULT === $locatorType) {
@@ -52,31 +61,31 @@ class CertificateLocatorHelper {
       $vaultToken = new VaultToken($httpClient, $requestFactory);
 
       $token = $vaultToken->getToken(
-        $options['tenant_id'],
-        $options['application_id'],
-        $options['client_secret'],
+        $options[self::LOCATOR_AZURE_KEY_VAULT_TENANT_ID],
+        $options[self::LOCATOR_AZURE_KEY_VAULT_APPLICATION_ID],
+        $options[self::LOCATOR_AZURE_KEY_VAULT_CLIENT_SECRET],
       );
 
       $vault = new VaultSecret(
         $httpClient,
         $requestFactory,
-        $options['name'],
+        $options[self::LOCATOR_AZURE_KEY_VAULT_NAME],
         $token->getAccessToken()
       );
 
       return new AzureKeyVaultCertificateLocator(
         $vault,
-        $options['secret'],
-        $options['version'],
-        $options['passphrase'],
+        $options[self::LOCATOR_AZURE_KEY_VAULT_SECRET],
+        $options[self::LOCATOR_AZURE_KEY_VAULT_VERSION],
+        $options[self::LOCATOR_PASSPHRASE],
       );
     }
     elseif (self::LOCATOR_TYPE_FILE_SYSTEM === $locatorType) {
-      $certificatepath = realpath($options['path']) ?: NULL;
+      $certificatepath = realpath($options[self::LOCATOR_FILE_SYSTEM_PATH]) ?: NULL;
       if (NULL === $certificatepath) {
-        throw new CertificateLocatorException(sprintf('Invalid certificate path %s', $options['path']));
+        throw new CertificateLocatorException(sprintf('Invalid certificate path %s', $options[self::LOCATOR_FILE_SYSTEM_PATH]));
       }
-      return new FilesystemCertificateLocator($certificatepath, $options['passphrase']);
+      return new FilesystemCertificateLocator($certificatepath, $options[self::LOCATOR_PASSPHRASE]);
     }
 
     throw new CertificateLocatorException(sprintf('Invalid certificate locator type: %s', $locatorType));

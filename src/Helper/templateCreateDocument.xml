@@ -63,7 +63,7 @@
         <AktoerTypeKode>Bruger</AktoerTypeKode>
       </Virkning>
       <ReferenceID xmlns="urn:oio:sagdok:3.0.0">
-        <UUIDIdentifikator xmlns="urn:oio:sagdok:3.0.0">urn:schultz:dokument:1.0:primaerpart:cpr:1107709352</UUIDIdentifikator>
+        <UUIDIdentifikator xmlns="urn:oio:sagdok:3.0.0">UUIDIdentifikator0</UUIDIdentifikator>
       </ReferenceID>
     </Parter>
   </RelationListe>
@@ -80,8 +80,8 @@
       </VariantEgenskaber>
       <Del>
         <DelEgenskaber>
-          <DelTekst xmlns="urn:oio:sagdok:3.0.0">Testpdf.pdf</DelTekst>
-          <IndholdTekst xmlns="urn:oio:sagdok:3.0.0">13441aff-d12a-4930-89af-d8debaa3e43d</IndholdTekst>
+          <DelTekst xmlns="urn:oio:sagdok:3.0.0">DelTekst</DelTekst>
+          <IndholdTekst xmlns="urn:oio:sagdok:3.0.0">IndholdTekst</IndholdTekst>
           <Virkning xmlns="urn:oio:sagdok:3.0.0">
             <AktoerRef>
               <UUIDIdentifikator />

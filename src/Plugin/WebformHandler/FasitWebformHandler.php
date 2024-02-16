@@ -85,8 +85,7 @@ class FasitWebformHandler extends WebformHandlerBase {
    * @phpstan-param array<string, mixed> $form
    * @phpstan-return array<string, mixed>
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $elements = $this->getWebform()->getElementsDecodedAndFlattened();
 
     $form[self::FASIT_HANDLER_GENERAL] = [
