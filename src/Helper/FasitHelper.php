@@ -48,6 +48,7 @@ class FasitHelper {
    * @throws \Drupal\os2forms_fasit\Exception\FasitResponseException
    * @throws \Drupal\os2forms_fasit\Exception\FasitXMLGenerationException
    * @throws \Drupal\os2forms_fasit\Exception\InvalidSettingException
+   * @throws \Drupal\os2forms_fasit\Exception\FileTypeException
    *
    * @phpstan-param array<string, mixed> $handlerConfiguration
    */
@@ -375,7 +376,6 @@ class FasitHelper {
     /** @var \Drupal\webform\Entity\WebformSubmission $submission */
     $submission = $this->getSubmission($submissionId);
     $fileIds = $this->getFileElementKeysFromSubmission($submission);
-
     $fileStorage = $this->entityTypeManager->getStorage('file');
 
     $uploads = [];
