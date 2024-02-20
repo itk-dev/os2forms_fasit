@@ -24,7 +24,7 @@ final class Settings {
    *
    * @var string
    */
-  private $collection = 'os2forms_fasit.';
+  private $collection = 'os2forms_fasit';
 
   /**
    * The constructor.

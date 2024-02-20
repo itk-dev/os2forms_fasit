@@ -29,17 +29,9 @@ class CertificateLocatorHelper {
   public const LOCATOR_FILE_SYSTEM_PATH = 'path';
 
   /**
-   * The settings.
-   *
-   * @var \Drupal\os2forms_fasit\Helper\Settings
-   */
-  private Settings $settings;
-
-  /**
    * Constructor.
    */
-  public function __construct(Settings $settings) {
-    $this->settings = $settings;
+  public function __construct(private readonly Settings $settings) {
   }
 
   /**

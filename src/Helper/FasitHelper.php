@@ -14,6 +14,7 @@ use Drupal\webform\Entity\WebformSubmission;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Utils;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * The Fasit helper class.
@@ -107,8 +108,12 @@ class FasitHelper {
    * @phpstan-param array<string, mixed> $handlerConfiguration
    */
   private function uploadDocument(array $uploads, string $submissionId, array $handlerConfiguration): void {
-    // Endpoint: {baseurl}/{tenant}/{version}/documents/{method}.
-    $endpoint = $this->settings->getFasitApiBaseUrl() . '/' . $this->settings->getFasitApiTenant() . '/' . $this->settings->getFasitApiVersion() . '/documents/' . self::FASIT_API_METHOD_CREATE;
+    $endpoint = sprintf('%s/%s/%s/documents/%s',
+      $this->settings->getFasitApiBaseUrl(),
+      $this->settings->getFasitApiTenant(),
+      $this->settings->getFasitApiVersion(),
+      self::FASIT_API_METHOD_CREATE
+    );
 
     // Check handler configuration.
     $this->checkHandlerConfiguration($handlerConfiguration, FasitWebformHandler::FASIT_HANDLER_CPR_ELEMENT);
@@ -140,6 +145,7 @@ class FasitHelper {
 
     // Handle uploads
     // Use existing DelEgenskaber as template for each upload.
+    // DelEgenskaber is the first child of Del.
     $delEgenskaber = $doc->getElementsByTagName('DelEgenskaber')->item(0);
     $del = $doc->getElementsByTagName('Del')->item(0);
 
@@ -156,18 +162,12 @@ class FasitHelper {
         }
       }
 
-      $del->appendChild($copyDelEgenskaber);
+      $del->insertBefore($copyDelEgenskaber, $delEgenskaber);
     }
 
     // Remove template 'DelEgenskaber'.
     $parent = $delEgenskaber->parentNode;
     $parent->removeChild($delEgenskaber);
-
-    // Move 'DelRelationer' beneath appended
-    // 'DelEgenskaber' by removing and appending it.
-    $delRelationer = $doc->getElementsByTagName('DelRelationer')->item(0);
-    $parent->removeChild($delRelationer);
-    $parent->appendChild($delRelationer);
 
     // Handle Parter.
     $elements = $doc->getElementsByTagName('Parter')->item(0)->childNodes;
@@ -206,7 +206,7 @@ class FasitHelper {
       }
     }
 
-    if (200 != $response->getStatusCode()) {
+    if (Response::HTTP_OK !== $response->getStatusCode()) {
       throw new FasitResponseException(sprintf('Expected status code 200, received %d', $response->getStatusCode()));
     }
   }
@@ -276,7 +276,7 @@ class FasitHelper {
     $webformAttachmentElementId = $handlerConfiguration[FasitWebformHandler::FASIT_HANDLER_GENERAL][FasitWebformHandler::FASIT_HANDLER_ATTACHMENT_ELEMENT];
     $webformAttachmentElement = $submission->getWebform()->getElement($webformAttachmentElementId);
 
-    if ('pdf' != $webformAttachmentElement['#export_type']) {
+    if ('pdf' !== $webformAttachmentElement['#export_type']) {
       throw new InvalidSettingException(sprintf('Export type of attachment element (%s) must be pdf, found %s', $webformAttachmentElementId, $webformAttachmentElement['#export_type']));
     }
 
@@ -304,8 +304,12 @@ class FasitHelper {
    * @phpstan-return array<string, mixed>
    */
   private function uploadFile(string $originalFilename, string $tempFilename): array {
-    // Endpoint: {baseurl}/{tenant}/{version}/documents/{method}.
-    $endpoint = $this->settings->getFasitApiBaseUrl() . '/' . $this->settings->getFasitApiTenant() . '/' . $this->settings->getFasitApiVersion() . '/documents/' . self::FASIT_API_METHOD_UPLOAD;
+    $endpoint = sprintf('%s/%s/%s/documents/%s',
+      $this->settings->getFasitApiBaseUrl(),
+      $this->settings->getFasitApiTenant(),
+      $this->settings->getFasitApiVersion(),
+      self::FASIT_API_METHOD_UPLOAD
+    );
 
     [$certificateOptions, $tempCertFilename] = $this->getCertificateOptionsAndTempCertFilename();
 
@@ -345,7 +349,7 @@ class FasitHelper {
       }
     }
 
-    if (201 != $response->getStatusCode()) {
+    if (Response::HTTP_CREATED !== $response->getStatusCode()) {
       throw new FasitResponseException(sprintf('Expected status code 201, received %d', $response->getStatusCode()));
     }
 
@@ -385,7 +389,7 @@ class FasitHelper {
       $file = $fileStorage->load($fileId);
 
       // Ensure it is a pdf.
-      if (!empty(file_validate_extensions($file, 'pdf'))) {
+      if ('application/pdf' !== $file->getMimeType()) {
         throw new FileTypeException('Invalid file type uploaded. Only allowed file type is: pdf');
       }
 
@@ -396,7 +400,6 @@ class FasitHelper {
       file_put_contents($tempFilename, $fileContent);
 
       $uploads[] = $this->uploadFile($filename, $tempFilename);
-
     }
 
     return $uploads;

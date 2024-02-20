@@ -208,10 +208,11 @@ final class SettingsForm extends FormBase {
     }
     catch (OptionsResolverException $exception) {
       $this->messenger()->addError($this->t('Settings not saved (@message)', ['@message' => $exception->getMessage()]));
+
+      return;
     }
 
     $this->messenger()->addStatus($this->t('Settings saved'));
-
   }
 
   /**

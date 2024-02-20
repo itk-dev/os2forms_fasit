@@ -90,7 +90,7 @@ class FasitWebformHandler extends WebformHandlerBase {
 
     $form[self::FASIT_HANDLER_GENERAL] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Choose general settings'),
+      '#title' => $this->t('General settings'),
     ];
 
     $form[self::FASIT_HANDLER_GENERAL][self::FASIT_HANDLER_DOCUMENT_TITLE] = [
