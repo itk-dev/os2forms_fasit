@@ -17,7 +17,9 @@ certificate on `/admin/os2forms_fasit/settings`.
 
 ## Queue
 
-Archiving is done via an [AdvanedQueue](https://www.drupal.org/project/advancedqueue) called `fasit_queue`.
+Archiving is done via an
+[AdvanedQueue](https://www.drupal.org/project/advancedqueue)
+called `fasit_queue`.
 
 The queue should be processed via `drush`.
 
@@ -31,7 +33,8 @@ List the queue (and all other queues) with
 drush advancedqueue:queue:list
 ```
 
-or go to `/admin/config/system/queues/jobs/fasit_queue` for a graphical overview of jobs in the queue.
+or go to `/admin/config/system/queues/jobs/fasit_queue`
+for a graphical overview of jobs in the queue.
 
 ### Cronjob
 
