@@ -1,6 +1,7 @@
-# OS2Forms GetOrganized
+# OS2Forms Fasit
 
-Adds [Fasit Schultz](https://schultz.dk/loesninger/schultz-fasit/) handler for archiving purposes.
+Adds [Fasit Schultz](https://schultz.dk/loesninger/schultz-fasit/)
+handler for archiving purposes.
 
 ## Installation
 
@@ -19,13 +20,18 @@ certificate on `/admin/os2forms_fasit/settings`.
 Check coding standards:
 
 ```sh
+// PHP CS Fixer
 docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.1-fpm:latest composer install
 docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.1-fpm:latest composer coding-standards-check
+
+// Markdownlint
+docker run --rm --interactive --tty --volume ${PWD}:/app node:20 yarn --cwd /app install
+docker run --rm --interactive --tty --volume ${PWD}:/app node:20 yarn --cwd /app coding-standards-check
 ```
 
 Apply coding standards:
 
 ```shell
 docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.1-fpm:latest composer coding-standards-apply
-docker run --rm --interactive --tty --volume ${PWD}:/app node:18 yarn --cwd /app coding-standards-apply
+docker run --rm --interactive --tty --volume ${PWD}:/app node:20 yarn --cwd /app coding-standards-apply
 ```

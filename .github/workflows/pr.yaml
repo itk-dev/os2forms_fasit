@@ -50,6 +50,22 @@ jobs:
           # Check that dependencies resolve.
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
+  markdown-coding-standards:
+    name: Yarn - Check Coding Standards (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '20' ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - run: |
+          yarn install
+          yarn coding-standards-check
+
   php-check-coding-standards:
     name: PHP - Check Coding Standards
     runs-on: ubuntu-latest
