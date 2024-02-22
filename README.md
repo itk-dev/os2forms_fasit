@@ -21,7 +21,7 @@ Archiving is done via an
 [Advanced Queue](https://www.drupal.org/project/advancedqueue)
 called `fasit_queue`.
 
-The queue should be processed via `drush`.
+The queue should be processed with `drush`:
 
 ```sh
 drush advancedqueue:queue:process fasit_queue
