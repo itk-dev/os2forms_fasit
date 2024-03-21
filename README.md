@@ -19,20 +19,14 @@ certificate on `/admin/os2forms_fasit/settings`.
 
 The certificate must be in `pem` or `cer` format and
 must be whitelisted by Fasit Schultz.
-For this the certificate thumbprint is needed. To get the thumbprint
-from the command line run
+For this the certificate thumbprint is needed. To get the thumbprint,
+in the needed format, from the command line run
 
 ```sh
-openssl x509 -in SOME_CERTIFICATE.pem -noout -fingerprint
+openssl x509 -in SOME_CERTIFICATE.pem -noout -fingerprint |  cut -d= -f2 | sed 's/://g' | tr '[:upper:]' '[:lower:]'
 ```
 
 Example output
-
-```sh
-SHA1 Fingerprint=6A:CB:26:1F:39:31:72:D8:7F:A3:99:7C:EC:86:56:97:59:A8:52:8A
-```
-
-which should be converted to lowercase and have its colons removed before provided to Fasit Schultz, i.e.
 
 ```sh
 6acb261f393172d87fa3997cec86569759a8528a
