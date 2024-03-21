@@ -7,4 +7,6 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- Initial module base.
+
 [Unreleased]: https://github.com/itk-dev/os2forms_fasit/tree/develop
