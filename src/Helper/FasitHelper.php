@@ -317,7 +317,7 @@ class FasitHelper {
     try {
       $options = [
         'headers' => [
-          'Content-Type' => 'multipart/form-data',
+          'Content-Type' => 'application/pdf',
           'X-Filename' => $originalFilename,
           'X-Title' => pathinfo($originalFilename, PATHINFO_FILENAME),
         ],

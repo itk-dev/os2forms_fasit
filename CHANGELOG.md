@@ -7,6 +7,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.0.2] 2024-04-17
+
+- Fixed `Content-Type` header.
+
 ## [1.0.1] 2024-04-04
 
 - Fixed queue install configuration.
