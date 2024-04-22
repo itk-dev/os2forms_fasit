@@ -55,13 +55,7 @@ class Fasit extends JobTypeBase implements ContainerFactoryPluginInterface {
    *
    * @phpstan-param array<string, mixed> $configuration
    */
-  public function __construct(
-    array $configuration,
-                                  $plugin_id,
-                                  $plugin_definition,
-    FasitHelper $helper,
-    LoggerChannelFactoryInterface $loggerFactory
-  ) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, FasitHelper $helper, LoggerChannelFactoryInterface $loggerFactory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->helper = $helper;
     $this->submissionLogger = $loggerFactory->get('webform_submission');
