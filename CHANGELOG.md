@@ -7,7 +7,7 @@ about writing changes to this log.
 
 ## [Unreleased]
 
-## [1.0.2] 2024-04-17
+## [1.0.2] 2024-04-22
 
 - Fixed `Content-Type` header.
 
