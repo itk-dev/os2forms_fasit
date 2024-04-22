@@ -321,16 +321,7 @@ class FasitHelper {
           'X-Filename' => $originalFilename,
           'X-Title' => pathinfo($originalFilename, PATHINFO_FILENAME),
         ],
-        'multipart' => [
-          [
-            'name' => 'fileData',
-            'contents' => Utils::tryFopen($tempFilename, 'r'),
-            'filename' => pathinfo($tempFilename, PATHINFO_FILENAME),
-            'headers'  => [
-              'Content-Type' => '<Content-type header>',
-            ],
-          ],
-        ],
+        'body' => Utils::tryFopen($tempFilename, 'r'),
         'cert' => $certificateOptions,
       ];
 
