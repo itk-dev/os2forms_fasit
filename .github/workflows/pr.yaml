@@ -49,22 +49,9 @@ jobs:
           composer validate --strict composer.json
           # Check that dependencies resolve.
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
-
-  markdown-coding-standards:
-    name: Yarn - Check Coding Standards (Node ${{ matrix.node }})
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [ '20' ]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node }}
-      - run: |
-          yarn install
-          yarn coding-standards-check
+      - name: Check that composer file is normalized
+        run: |
+          composer normalize --dry-run
 
   php-check-coding-standards:
     name: PHP - Check Coding Standards
@@ -125,34 +112,17 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: drupal-check
+      - name: Code analysis
         run: |
-          # We need a Drupal project to run drupal-check (cf. https://github.com/mglaman/drupal-check#usage)
-          # Install Drupal
-          composer --no-interaction create-project drupal/recommended-project:^9 --stability=dev drupal
-          # Copy our module source code into the Drupal module folder.
-          mkdir -p drupal/web/modules/contrib/os2forms_fasit
-          cp -r os2forms_fasit.* composer.json src drupal/web/modules/contrib/os2forms_fasit
-          # Add our module as a composer repository.
-          composer --no-interaction --working-dir=drupal config repositories.os2forms/os2forms_fasit path web/modules/contrib/os2forms_fasit
-          # Restore Drupal composer repository.
-          composer --no-interaction --working-dir=drupal config repositories.drupal composer https://packages.drupal.org/8
+          ./scripts/code-analysis
 
-          composer --no-interaction --working-dir=drupal config --no-plugins allow-plugins.cweagans/composer-patches true
-          composer --no-interaction --working-dir=drupal config --no-plugins allow-plugins.zaporylie/composer-drupal-optimizations true
-          composer --no-interaction --working-dir=drupal config --no-plugins allow-plugins.simplesamlphp/composer-module-installer true
-          # @see https://getcomposer.org/doc/03-cli.md#modifying-extra-values
-          composer --no-interaction --working-dir=drupal config --no-plugins --json extra.enable-patching true
+  coding-standards-markdown:
+    name: Markdown coding standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
 
-          # Require our module.
-          composer --no-interaction --working-dir=drupal require 'os2forms/os2forms_fasit:*'
-
-          # Check code
-          composer --no-interaction --working-dir=drupal require --dev drupal/core-dev
-          cd drupal/web/modules/contrib/os2forms_fasit
-          # Remove our non-dev dependencies to prevent duplicated Drupal installation
-          # PHP Fatal error:  Cannot redeclare drupal_get_filename() (previously declared in /home/runner/work/os2forms_fasit/os2forms_fasit/drupal/web/modules/contrib/os2forms_fasit/vendor/drupal/core/includes/bootstrap.inc:190) in /home/runner/work/os2forms_fasit/os2forms_fasit/drupal/web/core/includes/bootstrap.inc on line 190
-          # Use sed to remove the "require" property in composer.json
-          sed -i '/^\s*"require":/,/^\s*}/d' composer.json
-          composer --no-interaction install
-          composer code-analysis
+      - name: Coding standards
+        run: |
+          docker run --rm --volume $PWD:/md peterdavehello/markdownlint markdownlint --ignore vendor --ignore LICENSE.md '**/*.md'
