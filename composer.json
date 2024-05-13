@@ -15,7 +15,7 @@
         "drupal/advancedqueue": "^1.0",
         "drupal/webform": "^6.1",
         "os2forms/os2forms": "^3.13",
-        "os2web/os2web_key": "dev-os2web_key",
+        "os2web/os2web_key": "^1.0",
         "symfony/options-resolver": "^5.4 || ^6.0"
     },
     "require-dev": {
@@ -27,10 +27,6 @@
         "phpstan/phpstan-deprecation-rules": "^1.1"
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/itk-dev/os2web_key"
-        },
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
