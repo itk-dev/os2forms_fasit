@@ -104,6 +104,7 @@ final class SettingsForm extends ConfigFormBase {
         'type' => 'os2web_key_certificate',
       ],
       '#title' => $this->t('Key'),
+      '#required' => TRUE,
       '#default_value' => $config->get(self::KEY),
     ];
 
