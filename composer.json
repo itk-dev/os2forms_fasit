@@ -1,20 +1,12 @@
 {
     "name": "os2forms/os2forms_fasit",
     "description": "OS2Forms Fasit integration",
-    "type": "drupal-module",
     "license": "MIT",
+    "type": "drupal-module",
     "authors": [
         {
             "name": "Jeppe Kuhlmann Andersen",
             "email": "jekua@aarhus.dk"
-        }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
         }
     ],
     "require": {
@@ -23,39 +15,48 @@
         "drupal/advancedqueue": "^1.0",
         "drupal/webform": "^6.1",
         "os2forms/os2forms": "^3.13",
+        "os2web/os2web_key": "^1.0",
         "symfony/options-resolver": "^5.4 || ^6.0"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
         "drupal/coder": "^8.3",
-        "mglaman/drupal-check": "^1.4"
+        "ergebnis/composer-normalize": "^2.42",
+        "mglaman/phpstan-drupal": "^1.2",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan-deprecation-rules": "^1.1"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "ergebnis/composer-normalize": true,
+            "phpstan/extension-installer": true,
+            "simplesamlphp/composer-module-installer": true,
+            "zaporylie/composer-drupal-optimizations": true
+        },
+        "sort-packages": true
     },
     "scripts": {
-        "code-analysis/drupal-check": [
-            "drupal-check --deprecations --analysis --exclude-dir='vendor' *.* src"
+        "coding-standards-apply": [
+            "@coding-standards-apply/phpcs"
         ],
-        "code-analysis": [
-            "@code-analysis/drupal-check"
-        ],
-        "coding-standards-check/phpcs": [
-            "vendor/bin/phpcs --standard=phpcs.xml.dist"
+        "coding-standards-apply/phpcs": [
+            "phpcbf --standard=phpcs.xml.dist"
         ],
         "coding-standards-check": [
             "@coding-standards-check/phpcs"
         ],
-        "coding-standards-apply/phpcs": [
-            "vendor/bin/phpcbf --standard=phpcs.xml.dist"
-        ],
-        "coding-standards-apply": [
-            "@coding-standards-apply/phpcs"
+        "coding-standards-check/phpcs": [
+            "phpcs --standard=phpcs.xml.dist"
         ]
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "zaporylie/composer-drupal-optimizations": true,
-            "cweagans/composer-patches": true,
-            "simplesamlphp/composer-module-installer": true
-        }
     }
 }

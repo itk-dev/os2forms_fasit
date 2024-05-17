@@ -7,17 +7,20 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+* [PR-7](https://github.com/itk-dev/os2forms_fasit/pull/7)
+  Added support for os2web_key
+
 ## [1.0.2] 2024-04-22
 
-- Fixed `Content-Type` header.
+* Fixed `Content-Type` header.
 
 ## [1.0.1] 2024-04-04
 
-- Fixed queue install configuration.
+* Fixed queue install configuration.
 
 ## [1.0.0]
 
-- Initial module base.
+* Initial module base.
 
 [Unreleased]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.1...HEAD
 [1.0.1]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.0...1.0.1
