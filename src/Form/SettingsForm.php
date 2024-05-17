@@ -118,7 +118,7 @@ final class SettingsForm extends ConfigFormBase {
       ],
 
       'message' => [
-        '#markup' => $this->t('Note: Pinging the API will used saved config.'),
+        '#markup' => $this->t('Note: Pinging the API will use saved config.'),
       ],
     ];
 
