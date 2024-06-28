@@ -9,6 +9,7 @@ use Drupal\os2forms_fasit\Exception\FasitResponseException;
 use Drupal\os2forms_fasit\Exception\FasitXMLGenerationException;
 use Drupal\os2forms_fasit\Exception\FileTypeException;
 use Drupal\os2forms_fasit\Exception\InvalidSettingException;
+use Drupal\os2forms_fasit\Exception\InvalidSubmissionException;
 use Drupal\os2forms_fasit\Plugin\WebformHandler\FasitWebformHandler;
 use Drupal\webform\Entity\WebformSubmission;
 use GuzzleHttp\ClientInterface;
