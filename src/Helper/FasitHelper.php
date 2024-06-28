@@ -9,6 +9,7 @@ use Drupal\os2forms_fasit\Exception\FasitResponseException;
 use Drupal\os2forms_fasit\Exception\FasitXMLGenerationException;
 use Drupal\os2forms_fasit\Exception\FileTypeException;
 use Drupal\os2forms_fasit\Exception\InvalidSettingException;
+use Drupal\os2forms_fasit\Exception\InvalidSubmissionException;
 use Drupal\os2forms_fasit\Plugin\WebformHandler\FasitWebformHandler;
 use Drupal\webform\Entity\WebformSubmission;
 use GuzzleHttp\ClientInterface;
@@ -129,7 +130,22 @@ class FasitHelper {
     /** @var \Drupal\webform\Entity\WebformSubmission $submission */
     $submission = $this->getSubmission($submissionId);
     $submissionData = $submission->getData();
-    $fasitCpr = $submissionData[$webformCprElementId];
+
+    $fasitCpr = $submissionData[$webformCprElementId] ?? NULL;
+
+    // Fix if os2forms_person_lookup (cpr & name validation) element is used.
+    if (is_array($fasitCpr)) {
+      // Example:
+      // [
+      // 'cpr_number' => 1234567890,
+      // 'name' => Eksempel Eksempelsen,
+      // ].
+      $fasitCpr = $fasitCpr['cpr_number'] ?? NULL;
+    }
+
+    if (NULL !== $fasitCpr) {
+      throw new InvalidSubmissionException(sprintf('Could not determine value of configured CPR element in submission.'));
+    }
 
     // Construct XML.
     $doc = new \DOMDocument();

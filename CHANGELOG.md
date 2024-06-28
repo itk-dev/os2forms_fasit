@@ -7,6 +7,8 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+- Allowed `os2forms_person_lookup` as CPR-element in handler.
+
 ## [1.0.2] 2024-04-22
 
 - Fixed `Content-Type` header.
@@ -19,6 +21,7 @@ about writing changes to this log.
 
 - Initial module base.
 
-[Unreleased]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.1...HEAD
+[Unreleased]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.2...HEAD
+[1.0.2]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/itk-dev/os2forms_fasit/releases/tag/1.0.0
