@@ -27,7 +27,8 @@ about writing changes to this log.
 
 * Initial module base.
 
-[Unreleased]: https://github.com/itk-dev/os2forms_fasit/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/itk-dev/os2forms_fasit/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/itk-dev/os2forms_fasit/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.2...1.1.0
 [1.0.2]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.0...1.0.1
