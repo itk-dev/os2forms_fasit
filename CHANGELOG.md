@@ -7,6 +7,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.1.1] 2024-09-03
+
+* Correctly determine value of configured CPR element.
+
 ## [1.1.0] 2024-09-02
 
 * Allowed `os2forms_person_lookup` as CPR-element in handler.

@@ -143,7 +143,7 @@ class FasitHelper {
       $fasitCpr = $fasitCpr['cpr_number'] ?? NULL;
     }
 
-    if (NULL !== $fasitCpr) {
+    if (NULL === $fasitCpr) {
       throw new InvalidSubmissionException(sprintf('Could not determine value of configured CPR element in submission.'));
     }
 
