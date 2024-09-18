@@ -112,7 +112,12 @@ class FasitWebformHandler extends WebformHandlerBase {
     $form[self::FASIT_HANDLER_GENERAL][self::FASIT_HANDLER_CPR_ELEMENT] = [
       '#type' => 'select',
       '#title' => $this->t('CPR element'),
-      '#options' => $this->getAvailableElementsByType(['textfield', 'os2forms_nemid_cpr', 'os2forms_person_lookup'], $elements),
+      '#options' => $this->getAvailableElementsByType([
+        'textfield',
+        'os2forms_nemid_cpr',
+        'os2forms_person_lookup',
+        'webform_computed_twig',
+      ], $elements),
       '#default_value' => $this->configuration[self::FASIT_HANDLER_GENERAL][self::FASIT_HANDLER_CPR_ELEMENT] ?? '',
       '#description' => $this->t('Choose element containing CPR.'),
       '#required' => TRUE,

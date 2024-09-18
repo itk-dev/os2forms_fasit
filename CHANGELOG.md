@@ -7,6 +7,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.2.0] 2024-09-18
+
+* Allowed `webform_computed_twig` as CPR-element in handler.
+
 ## [1.1.1] 2024-09-03
 
 * Correctly determine value of configured CPR element.
