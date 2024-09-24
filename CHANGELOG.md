@@ -7,6 +7,10 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+## [1.2.0] 2024-09-24
+
+* Upgrade `os2forms/os2forms` requirement.
+
 ## [1.1.1] 2024-09-03
 
 * Correctly determine value of configured CPR element.
