@@ -68,8 +68,8 @@ Check coding standards:
 
 ```sh
 // PHP CS Fixer
-docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.1-fpm:latest composer install
-docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.1-fpm:latest composer coding-standards-check
+docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.2-fpm:latest composer install
+docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.2-fpm:latest composer coding-standards-check
 
 // Markdownlint
 docker run --rm --interactive --tty --volume ${PWD}:/app node:20 yarn --cwd /app install
@@ -79,6 +79,6 @@ docker run --rm --interactive --tty --volume ${PWD}:/app node:20 yarn --cwd /app
 Apply coding standards:
 
 ```shell
-docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.1-fpm:latest composer coding-standards-apply
+docker run --rm --interactive --tty --volume ${PWD}:/app itkdev/php8.2-fpm:latest composer coding-standards-apply
 docker run --rm --interactive --tty --volume ${PWD}:/app node:20 yarn --cwd /app coding-standards-apply
 ```
