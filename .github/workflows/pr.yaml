@@ -152,7 +152,7 @@ jobs:
           # Require our module.
           composer --working-dir=drupal --no-interaction require 'os2forms/os2forms_fasit:*'
 
-          # Check code
+          # Check code!!
           composer --working-dir=drupal --no-interaction require --dev drupal/core-dev
           cd drupal/web/modules/contrib/os2forms_fasit
           # Remove our non-dev dependencies to prevent duplicated Drupal installation
