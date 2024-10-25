@@ -39,10 +39,10 @@
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "ergebnis/composer-normalize": true,
+            "mglaman/composer-drupal-lenient": true,
             "phpstan/extension-installer": true,
             "simplesamlphp/composer-module-installer": true,
-            "zaporylie/composer-drupal-optimizations": true,
-            "mglaman/composer-drupal-lenient": true
+            "zaporylie/composer-drupal-optimizations": true
         },
         "sort-packages": true
     },
