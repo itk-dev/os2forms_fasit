@@ -2,13 +2,13 @@
 
 namespace Drupal\os2forms_fasit\Plugin\WebformHandler;
 
-use Drupal\advancedqueue\Job;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\advancedqueue\Job;
 use Drupal\os2forms_fasit\Plugin\AdvancedQueue\JobType\Fasit;
 use Drupal\webform\Plugin\WebformHandlerBase;
 use Drupal\webform\WebformSubmissionConditionsValidatorInterface;
@@ -112,7 +112,7 @@ class FasitWebformHandler extends WebformHandlerBase {
     $form[self::FASIT_HANDLER_GENERAL][self::FASIT_HANDLER_CPR_ELEMENT] = [
       '#type' => 'select',
       '#title' => $this->t('CPR element'),
-      '#options' => $this->getAvailableElementsByType(['textfield', 'os2forms_nemid_cpr'], $elements),
+      '#options' => $this->getAvailableElementsByType(['textfield', 'os2forms_nemid_cpr', 'os2forms_person_lookup'], $elements),
       '#default_value' => $this->configuration[self::FASIT_HANDLER_GENERAL][self::FASIT_HANDLER_CPR_ELEMENT] ?? '',
       '#description' => $this->t('Choose element containing CPR.'),
       '#required' => TRUE,

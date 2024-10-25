@@ -2,12 +2,12 @@
 
 namespace Drupal\os2forms_fasit\Plugin\AdvancedQueue\JobType;
 
-use Drupal\advancedqueue\Job;
-use Drupal\advancedqueue\JobResult;
-use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\advancedqueue\Job;
+use Drupal\advancedqueue\JobResult;
+use Drupal\advancedqueue\Plugin\AdvancedQueue\JobType\JobTypeBase;
 use Drupal\os2forms_fasit\Helper\FasitHelper;
 use Drupal\webform\Entity\WebformSubmission;
 use Symfony\Component\DependencyInjection\ContainerInterface;

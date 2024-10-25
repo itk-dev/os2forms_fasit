@@ -10,6 +10,18 @@ about writing changes to this log.
 * [PR-7](https://github.com/itk-dev/os2forms_fasit/pull/7)
   Added support for os2web_key
 
+## [1.2.0] 2024-09-24
+
+* Upgrade `os2forms/os2forms` requirement.
+
+## [1.1.1] 2024-09-03
+
+* Correctly determine value of configured CPR element.
+
+## [1.1.0] 2024-09-02
+
+* Allowed `os2forms_person_lookup` as CPR-element in handler.
+
 ## [1.0.2] 2024-04-22
 
 * Fixed `Content-Type` header.
@@ -22,6 +34,9 @@ about writing changes to this log.
 
 * Initial module base.
 
-[Unreleased]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.1...HEAD
+[Unreleased]: https://github.com/itk-dev/os2forms_fasit/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/itk-dev/os2forms_fasit/compare/1.1.0...1.1.1
+[1.1.0]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.2...1.1.0
+[1.0.2]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/itk-dev/os2forms_fasit/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/itk-dev/os2forms_fasit/releases/tag/1.0.0

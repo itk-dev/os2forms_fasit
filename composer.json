@@ -10,11 +10,11 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "ext-dom": "*",
         "drupal/advancedqueue": "^1.0",
         "drupal/webform": "^6.1",
-        "os2forms/os2forms": "^3.13",
+        "os2forms/os2forms": "^3.16",
         "os2web/os2web_key": "^1.0",
         "symfony/options-resolver": "^5.4 || ^6.0"
     },
