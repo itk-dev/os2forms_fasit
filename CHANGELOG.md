@@ -7,6 +7,9 @@ about writing changes to this log.
 
 ## [Unreleased]
 
+* [PR-7](https://github.com/itk-dev/os2forms_fasit/pull/7)
+  Added support for os2web_key
+
 ## [1.2.0] 2024-09-24
 
 * Upgrade `os2forms/os2forms` requirement.
